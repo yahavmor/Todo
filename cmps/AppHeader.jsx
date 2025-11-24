@@ -10,7 +10,7 @@ import { showErrorMsg } from '../services/event-bus.service.js'
 
 export function AppHeader() {
     const navigate = useNavigate()
-    const [user, setUser] = useState(userService.getLoggedinUser())
+    const [loggedInUser, setLoggedInUser] = useState(userService.getLoggedinUser())
     
     function onLogout() {
         userService.logout()
@@ -22,18 +22,18 @@ export function AppHeader() {
             })
     }
 
-    function onSetUser(user) {
-        setUser(user)
+    function onSetUser(loggedInUser) {
+        setLoggedInUser(loggedInUser)
         navigate('/')
     }
     return (
         <header className="app-header full main-layout">
             <section className="header-container">
                 <h1>React Todo App</h1>
-                {user ? (
+                {loggedInUser ? (
                     < section >
 
-                        <Link to={`/user/${user._id}`}>Hello {user.fullname}</Link>
+                        <Link to={`/user/${loggedInUser._id}`}>Hello {loggedInUser.fullname}</Link>
                         <button onClick={onLogout}>Logout</button>
                     </ section >
                 ) : (
