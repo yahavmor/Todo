@@ -1,9 +1,8 @@
-
 import { TodoFilter } from "../cmps/TodoFilter.jsx"
 import { TodoList } from "../cmps/TodoList.jsx"
 import { todoService } from "../services/todo.service.js"
 import { showErrorMsg, showSuccessMsg } from "../services/event-bus.service.js"
-import { removeTodo,loadTodos} from "../store/todo.actions.js"
+import { loadTodos} from "../store/todo.actions.js"
 
 
 const { useState, useEffect } = React

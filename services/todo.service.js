@@ -63,7 +63,7 @@ function save(todo) {
 }
 
 function getEmptyTodo(txt = '', importance = 5) {
-    return { txt, importance, isDone: false }
+    return { txt, importance, isDone: false , checked: false }
 }
 
 function getDefaultFilter() {

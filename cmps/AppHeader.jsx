@@ -14,6 +14,8 @@ export function AppHeader() {
     const todos = useSelector((state) => state.todos)
     const navigate = useNavigate()
     const loggedInUser = useSelector((storeState) => storeState.loggedInUser)
+    const doneTodos = todos.filter(todo => todo.isDone).length
+    const progressPercentage = Math.round((doneTodos / todos.length) * 100)
     function onLogout() {
         logout()
             .then(() => {
@@ -25,29 +27,37 @@ export function AppHeader() {
             })
     }
     return (
-        <header className="app-header full main-layout">
-            <section className="header-container">
-                <h1>React Todo App</h1>
-                {loggedInUser ? (
-                    < section >
-                        <Link className="user-link" to={`/user/${loggedInUser._id}`}>Hello {loggedInUser.fullname}</Link>
-                        <span className="balance">Balance: {loggedInUser.balance}</span>
-                        <div>100%</div>
-                        <button onClick={onLogout}>Logout</button>
-                    </ section >
-                ) : (
-                    <section>
-                        <LoginSignup />
-                    </section>
-                )}
-                <nav className="app-nav">
-                    <NavLink to="/" >Home</NavLink>
-                    <NavLink to="/about" >About</NavLink>
-                    <NavLink to="/todo" >Todos</NavLink>
-                    <NavLink to="/dashboard" >Dashboard</NavLink>
-                </nav>
-            </section>
-            <UserMsg />
-        </header>
+        
+    <header
+        className="app-header full main-layout"
+        style={{    
+        color: (loggedInUser && loggedInUser.userPrefs && loggedInUser.userPrefs['txt-colour']) || '#fff',
+        backgroundColor: (loggedInUser && loggedInUser.userPrefs && loggedInUser.userPrefs['bgc-colour']) || '#000'
+        }}
+        >
+        <section className="header-container">
+            <h1>React Todo App</h1>
+            {loggedInUser ? (
+                <section>
+                    <Link className="user-link" to={`/user/${loggedInUser._id}`}>Hello {loggedInUser.fullname}</Link>
+                    <span className="balance">Balance: {loggedInUser.balance}</span>
+                    <div className="progress-percentage">You have completed {progressPercentage}% of your todos</div>
+                    <button onClick={onLogout}>Logout</button>
+                </section>
+            ) : (
+                <section>
+                    <LoginSignup />
+                </section>
+            )}
+            <nav className="app-nav">
+                <NavLink to="/" >Home</NavLink>
+                <NavLink to="/about" >About</NavLink>
+
+                {loggedInUser && (<section className="user-links"><NavLink to="/todo" >Todos</NavLink>
+                <NavLink to="/dashboard" >Dashboard</NavLink></section>)}
+            </nav>
+        </section>
+        <UserMsg />
+    </header>
     )
 }

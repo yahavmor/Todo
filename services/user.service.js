@@ -8,7 +8,10 @@ export const userService = {
     signup,
     getById,
     query,
-    getEmptyCredentials
+    getEmptyCredentials,
+    updateBalance,
+    getEmptyPrefs,
+    updatePrefs,
 }
 const STORAGE_KEY_LOGGEDIN = 'user'
 const STORAGE_KEY = 'userDB'
@@ -35,6 +38,7 @@ function signup({ username, password, fullname }) {
     user.createdAt = user.updatedAt = Date.now()
     user.balance = 10000
     user.activities = [{txt: 'Added a Todo', at: 1523873242735}]
+    user.userPrefs = getEmptyPrefs()
 
     return storageService.post(STORAGE_KEY, user)
         .then(_setLoggedinUser)
@@ -50,7 +54,7 @@ function getLoggedinUser() {
 }
 
 function _setLoggedinUser(user) {
-    const userToSave = { _id: user._id, fullname: user.fullname, username: user.username, balance: user.balance, activities: user.activities, createdAt: user.createdAt, updatedAt: user.updatedAt }
+    const userToSave = { _id: user._id, fullname: user.fullname, username: user.username, balance: user.balance, activities: user.activities, createdAt: user.createdAt, updatedAt: user.updatedAt, userPrefs: user.userPrefs }
     sessionStorage.setItem(STORAGE_KEY_LOGGEDIN, JSON.stringify(userToSave))
     return userToSave
 }
@@ -61,4 +65,29 @@ function getEmptyCredentials() {
         username: 'muki',
         password: 'muki1',
     }
+}
+function updateBalance() {
+    const loggedInUser = getLoggedinUser()
+    loggedInUser.balance += 10
+    loggedInUser.updatedAt = Date.now()
+    return storageService.put(STORAGE_KEY, loggedInUser)
+        .then(user => {
+            _setLoggedinUser(user)
+            return user
+        })
+}
+
+function getEmptyPrefs() {
+    return { 'txt-colour': '#ffffff', 'bgc-colour': '#000000', userName: '' };
+}
+
+function updatePrefs(userPrefs) {
+    const loggedInUser = getLoggedinUser()
+    loggedInUser.userPrefs = userPrefs
+    loggedInUser.fullname = userPrefs.userName || loggedInUser.fullname
+    return storageService.put(STORAGE_KEY, loggedInUser)
+        .then(user => {
+            _setLoggedinUser(user)
+            return user
+        })
 }

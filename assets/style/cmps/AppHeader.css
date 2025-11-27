@@ -2,10 +2,11 @@
     background-color: var(--clr1);
     color: var(--clr2bg-light);
     padding: 1rem 2rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
     position: sticky;
     top: 0;
     z-index: 1000;
+    font-family: 'Segoe UI', Tahoma, sans-serif;
 }
 
 .header-container {
@@ -18,10 +19,16 @@
 }
 
 .header-container h1 {
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     font-weight: bold;
     margin: 0;
     color: var(--clr2bg-light);
+}
+
+.user-links {
+    display: flex;
+    gap: 1rem;
+    margin-left: 1.5rem;
 }
 
 .app-nav {
@@ -34,12 +41,14 @@
     color: var(--clr2bg-light);
     text-decoration: none;
     font-weight: 500;
-    transition: color 0.3s ease, text-decoration 0.3s ease;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .app-nav a:hover {
+    background-color: rgba(255, 255, 255, 0.15);
     color: #facc15; /* Accent color */
-    text-decoration: underline;
 }
 
 a.active {
@@ -56,26 +65,34 @@ a.active {
 }
 
 .balance {
-    background-color: rgba(255, 255, 255, 0.1);
+    background-color: rgba(255, 255, 255, 0.15);
     padding: 0.4rem 0.8rem;
     border-radius: 6px;
     font-size: 0.9rem;
     margin-right: 1rem;
+    font-weight: 500;
+}
+
+.progress-percentage {
+    font-size: 0.9rem;
+    color: #d1d5db;
+    margin-right: 1rem;
 }
 
 button {
-    padding: 0.5rem 1rem;
+    padding: 0.6rem 1.2rem;
     border: none;
     border-radius: 6px;
     cursor: pointer;
     font-weight: bold;
     background-color: #ef4444;
     color: #fff;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 button:hover {
     background-color: #dc2626;
+    transform: scale(1.05);
 }
 
 

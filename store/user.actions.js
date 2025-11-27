@@ -37,4 +37,26 @@ export function logout(){
 }
 export function toggleSignUp() {    
       store.dispatch({ type: 'TOGGLE_SIGNUP' })
-}     
+}
+export function addToUserBalance() {
+    return userService.updateBalance()
+        .then((updatedUser) => {
+            store.dispatch({ type: SET_USER, loggedInUser: updatedUser }) 
+            return updatedUser
+        })
+        .catch(err => {
+            console.error('err:', err)
+            throw err
+        })
+}
+
+export function setUserPrefs(newPrefs) {
+    return userService.updatePrefs(newPrefs)
+        .then(updatedUser => {
+            store.dispatch({ type: SET_USER, loggedInUser: updatedUser });
+      })
+        .catch(err => {
+            console.error('err', err);
+            throw err;
+        });
+}
