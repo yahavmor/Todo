@@ -1,6 +1,5 @@
 
 ## Features
-- Drag & drop task reordering
 - Multiple filter views (all/active/completed)
 - Local storage persistence
 - Add/edit/delete tasks
